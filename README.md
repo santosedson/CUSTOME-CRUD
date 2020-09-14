@@ -12,18 +12,18 @@ Esse projeto consiste em um CRUD simples de Clintes utilizando API Rest e persis
 
  1.	Configuração do banco de dados:
  
-		- Antes de iniciar a aplicação, é necessário configurar a conexão com o banco de dados relacional de sua preferência.
-		No meu caso utilizei o banco de dados Oracle e as configurações poderão ser editadas em `application.properties`
-		localizado em `src\main\resources`.
+	- Antes de iniciar a aplicação, é necessário configurar a conexão com o banco de dados relacional de sua preferência.
+	No meu caso utilizei o banco de dados Oracle e as configurações poderão ser editadas em `application.properties`
+	localizado em `src\main\resources`.
 		
-		- Os Scripts de criação das tabelas se `encontram em src/main/resources/data/CREATE TABLES.sql`. 
-		É necessário criar as tabelas primeiro  antes de rodar a aplicação.
+	- Os Scripts de criação das tabelas se `encontram em src/main/resources/data/CREATE TABLES.sql`. 
+	É necessário criar as tabelas primeiro  antes de rodar a aplicação.
 		
-		**Obs:** Se for utilizar o banco de dados da Oracle para testar essa aplicação, 
-		somente será necessário alterar as informações de conexões do banco em `application.properties` 
-		e rodar os scripts de criação de tabelas  `CREATE TABLES.sql`. 
-		Caso prefira utilizar outro banco de dados, certifique-se de adicionar as devidas dependências  em `pom.xml`
-		, configurar as conexões no arquivo `application.properties` e alterar os script `CREATE TABLES.sql` se necessário.
+	**Obs:** Se for utilizar o banco de dados da Oracle para testar essa aplicação, 
+	somente será necessário alterar as informações de conexões do banco em `application.properties` 
+	e rodar os scripts de criação de tabelas  `CREATE TABLES.sql`. 
+	Caso prefira utilizar outro banco de dados, certifique-se de adicionar as devidas dependências  em `pom.xml`
+	, configurar as conexões no arquivo `application.properties` e alterar os script `CREATE TABLES.sql` se necessário.
 		
 
  2. Se for rodar a aplicação no Windows, execute o bat `START-CUSTOMER-CRUD-API.bat` que se encontra na raiz do projeto.
@@ -39,96 +39,97 @@ Esse projeto consiste em um CRUD simples de Clintes utilizando API Rest e persis
 		
 	**Obs:** Por default a interface rest usará a porta 8081. Caso precise mudar a porta, alterar no arquivo `application.properties` localizado em `src\main\resources`
 		
-		- Descrição: Cadastro de novos clientes
-		- Edpoint:  "http://localhost:8081/api/v1/customer/register"
-		- Verbo Http: POST
-		- Response code: 202 ou 400
-		- Response body: String (Text)
-		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
-		- Tipo de conteúdo esperado: JSON 
-		- Exemplo: 
+	- Descrição: Cadastro de novos clientes
+	- Edpoint:  "http://localhost:8081/api/v1/customer/register"
+	- Verbo Http: POST
+	- Response code: 202 ou 400
+	- Response body: String (Text)
+	- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+	- Tipo de conteúdo esperado: JSON 
+	- Exemplo: 
 		
-					**```
-					{
-						"NAME": "edson filho",
-						"CPF": "67064969017",
-						"ADRESS": {
-							"STREET_NAME": "RUA 23 de alguma coisa",
-							"ADRESS_NUMBER": "123",
-							"COMPLEMENT": "ap 44",
-							"CEP": "50720000",
-							"NEIGHBORHOOD": "madalena",
-							"CITY": "recife",
-							"STATE": "pe",
-							"COUNTRY": "br"
-						}
-					}
-					```**
+		```
+			{
+				"NAME": "edson filho",
+				"CPF": "67064969017",
+				"ADRESS": {
+					"STREET_NAME": "RUA 23 de alguma coisa",
+					"ADRESS_NUMBER": "123",
+					"COMPLEMENT": "ap 44",
+					"CEP": "50720000",
+					"NEIGHBORHOOD": "madalena",
+					"CITY": "recife",
+					"STATE": "pe",
+					"COUNTRY": "br"
+				}
+			}
+		```
 					
 		
-		- Descrição: Atualização de clientes
-		- Edpoint:  "http://localhost:8081/api/v1/customer/update"
-		- Verbo Http: PUT
-		- Response code: 202 ou 400
-		- Response body: String (Text)
-		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
-		- Tipo de conteúdo esperado: JSON 
-		- Exemplo: 
+	- Descrição: Atualização de clientes
+	- Edpoint:  "http://localhost:8081/api/v1/customer/update"
+	- Verbo Http: PUT
+	- Response code: 202 ou 400
+	- Response body: String (Text)
+	- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+	- Tipo de conteúdo esperado: JSON 
+	- Exemplo: 
 		
-					**```
-					{
-						"NAME": "edson filho",
-						"CPF": "67064969017",
-						"ADRESS": {
-							"STREET_NAME": "RUA 23 de alguma coisa",
-							"ADRESS_NUMBER": "123",
-							"COMPLEMENT": "ap 44",
-							"CEP": "50720000",
-							"NEIGHBORHOOD": "madalena",
-							"CITY": "recife",
-							"STATE": "pe",
-							"COUNTRY": "br"
-						}
-					}
-					```**
-		
-		- Descrição: Exclusão de clientes
-		- Edpoint:  "http://localhost:8081/api/v1/customer/delete?cpf=CPF_DO_CLIENTE"
-		- Verbo Http: DELETE
-		- Response code: 202
-		- Response body: String (Text)
-		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
-		- Tipo de conteúdo esperado: parêmetro 
-		- Exemplo: 
-		
-					```
-					http://localhost:8081/api/v1/customer/delete?cpf=11386682063
-					```
+		```
+			{
+				"NAME": "edson filho",
+				"CPF": "67064969017",
+				"ADRESS": {
+					"STREET_NAME": "RUA 23 de alguma coisa",
+					"ADRESS_NUMBER": "123",
+					"COMPLEMENT": "ap 44",
+					"CEP": "50720000",
+					"NEIGHBORHOOD": "madalena",
+					"CITY": "recife",
+					"STATE": "pe",
+					"COUNTRY": "br"
+				}
+			}
+		```
 		
 		
-		- Descrição: Consultar todos os clientes
-		- Edpoint:  "http://localhost:8081/api/v1/customer/findAll"
-		- Verbo Http: GET
-		- Response code: 202
-		- Response body: String (Text) ou Json
-		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
-		- Exemplo: 
-					```
-					http://localhost:8081/api/v1/customer/findAll
-					```
+	- Descrição: Exclusão de clientes
+	- Edpoint:  "http://localhost:8081/api/v1/customer/delete?cpf=CPF_DO_CLIENTE"
+	- Verbo Http: DELETE
+	- Response code: 202
+	- Response body: String (Text)
+	- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+	- Tipo de conteúdo esperado: parêmetro 
+	- Exemplo: 
+		
+		```
+			http://localhost:8081/api/v1/customer/delete?cpf=11386682063
+		```
+		
+		
+	- Descrição: Consultar todos os clientes
+	- Edpoint:  "http://localhost:8081/api/v1/customer/findAll"
+	- Verbo Http: GET
+	- Response code: 202
+	- Response body: String (Text) ou Json
+	- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+	- Exemplo: 
+		```
+			http://localhost:8081/api/v1/customer/findAll
+		```
 					
 					
-		- Descrição: Consultar clientes por CPF
-		- Edpoint: 
-		- Verbo Http: GET "http://localhost:8081/api/v1/customer/findBy?cpf=CPF_DO_CLIENTE"
-		- Response code: 202
-		- Response body: String (Text) ou Json
-		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
-		- Exemplo: 
+	- Descrição: Consultar clientes por CPF
+	- Edpoint: 
+	- Verbo Http: GET "http://localhost:8081/api/v1/customer/findBy?cpf=CPF_DO_CLIENTE"
+	- Response code: 202
+	- Response body: String (Text) ou Json
+	- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+	- Exemplo: 
 		
-					```
-					 http://localhost:8081/api/v1/customer/findBy?cpf=67064969017
-					```
+		```
+			http://localhost:8081/api/v1/customer/findBy?cpf=67064969017
+		```
 					
 4. Para finalizar a aplicação, basta apenas fechar o terminal.
 
