@@ -10,7 +10,23 @@ Esse projeto consiste em um CRUD simples de Clintes utilizando API Rest e persis
 
 ## Como executar essa aplicação: ## 
 
- 1. Se for rodar a aplicação no Windows, execute o bat `START-CUSTOMER-CRUD-API.bat` que se encontra na raiz do projeto.
+ 1.	Configuração do banco de dados:
+ 
+		- Antes de iniciar a aplicação, é necessário configurar a conexão com o banco de dados relacional de sua preferência.
+		No meu caso utilizei o banco de dados Oracle e as configurações poderão ser editadas em `application.properties`
+		localizado em `src\main\resources`.
+		
+		- Os Scripts de criação das tabelas se `encontram em src/main/resources/data/CREATE TABLES.sql`. 
+		É necessário criar as tabelas primeiro  antes de rodar a aplicação.
+		
+		**Obs:** Se for utilizar o banco de dados da Oracle para testar essa aplicação, 
+		somente será necessário alterar as informações de conexões do banco em `application.properties` 
+		e rodar os scripts de criação de tabelas  `CREATE TABLES.sql`. 
+		Caso prefira utilizar outro banco de dados, certifique-se de adicionar as devidas dependências  em `pom.xml`
+		, configurar as conexões no arquivo `application.properties` e alterar os script `CREATE TABLES.sql` se necessário.
+		
+
+ 2. Se for rodar a aplicação no Windows, execute o bat `START-CUSTOMER-CRUD-API.bat` que se encontra na raiz do projeto.
 	Se o arquivo bat não funcionar corretamente, na pasta do projeto execute o seguinte comando :
 	```shell
 	$ mvnw spring-boot:run
@@ -19,109 +35,123 @@ Esse projeto consiste em um CRUD simples de Clintes utilizando API Rest e persis
 	**Obs:** Se for a primeira vez que estiver sendo executado uma aplicação spring boot, irá demorar um pouco baixando as dependências necessárias.
 	Quando aparecer o banner significa que a aplicação foi iniciada com sucesso.
  
- 2. Ao rodar a aplicação, a API Rest será iniciada. Detalhes:
+ 3. Ao rodar a aplicação, a API Rest será iniciada. Detalhes:
 		
 	**Obs:** Por default a interface rest usará a porta 8081. Caso precise mudar a porta, alterar no arquivo `application.properties` localizado em `src\main\resources`
 		
-		- Edpoint de consultas:  http://localhost:8081/api/v1/route/find?route=FROM-TO
-		- Verbo Http: GET
-		- Response code de sucesso: 202
-		- Response body: Conteúdo HTML
-		- Descrição de utilização: Para acessar esse endpoint, poderá utilizar o navegador do seu computador ou a aplicação Postman.
-		Exemplo de formato esperado no parâmetro: 
-					```
-					REC-SSA
-					```
-		
-		- Edpoint para adicionar novas rotas:  http://localhost:8081/api/v1/route/input
+		- Descrição: Cadastro de novos clientes
+		- Edpoint:  "http://localhost:8081/api/v1/customer/register"
 		- Verbo Http: POST
-		- Response code de sucesso: 202
-		- Response body: Conteúdo HTML
-		- Descrição de utilização: Como esse endpoint espera receber um json como conteúdo, para testá-lo poderá ser utilizado o Postman.
-		Esse endpoint espera receber um json no seguinte formato:
+		- Response code: 202 ou 400
+		- Response body: String (Text)
+		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+		- Tipo de conteúdo esperado: JSON 
+		- Exemplo: 
+		
 					**```
 					{
-						"fileName": "input-routes",
-						"route": [
-							{
-								"from": "GRU",
-								"to": "CDG",
-								"cost": "100"
-							}
-						]
+						"NAME": "edson filho",
+						"CPF": "67064969017",
+						"ADRESS": {
+							"STREET_NAME": "RUA 23 de alguma coisa",
+							"ADRESS_NUMBER": "123",
+							"COMPLEMENT": "ap 44",
+							"CEP": "50720000",
+							"NEIGHBORHOOD": "madalena",
+							"CITY": "recife",
+							"STATE": "pe",
+							"COUNTRY": "br"
+						}
 					}
 					```**
-		- No campo `fileName` digite o nome do arquivo csv que deseja inserir as novas rotas(não deve ser informado a extensão do arquivo)
-		Dentro da estrutura route, com capacidade para receber uma lista de rotas, no campo `from` digite o aeroporto de origem,
-		no campo `to`, digite o aeroporto de destino, no campo `cost`, digite o valor desejado 
-		No campo `cost`, se o valor for um número com pontuação flutuante, utilizar o caractere `.` ex: 100.90)
-
-3. Para finalizar a aplicação, basta apenas fechar o terminal.
+					
+		
+		- Descrição: Atualização de clientes
+		- Edpoint:  "http://localhost:8081/api/v1/customer/update"
+		- Verbo Http: PUT
+		- Response code: 202 ou 400
+		- Response body: String (Text)
+		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+		- Tipo de conteúdo esperado: JSON 
+		- Exemplo: 
+		
+					**```
+					{
+						"NAME": "edson filho",
+						"CPF": "67064969017",
+						"ADRESS": {
+							"STREET_NAME": "RUA 23 de alguma coisa",
+							"ADRESS_NUMBER": "123",
+							"COMPLEMENT": "ap 44",
+							"CEP": "50720000",
+							"NEIGHBORHOOD": "madalena",
+							"CITY": "recife",
+							"STATE": "pe",
+							"COUNTRY": "br"
+						}
+					}
+					```**
+		
+		- Descrição: Exclusão de clientes
+		- Edpoint:  "http://localhost:8081/api/v1/customer/delete?cpf=CPF_DO_CLIENTE"
+		- Verbo Http: DELETE
+		- Response code: 202
+		- Response body: String (Text)
+		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+		- Tipo de conteúdo esperado: parêmetro 
+		- Exemplo: 
+		
+					```
+					http://localhost:8081/api/v1/customer/delete?cpf=11386682063
+					```
+		
+		
+		- Descrição: Consultar todos os clientes
+		- Edpoint:  "http://localhost:8081/api/v1/customer/findAll"
+		- Verbo Http: GET
+		- Response code: 202
+		- Response body: String (Text) ou Json
+		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+		- Exemplo: 
+					```
+					http://localhost:8081/api/v1/customer/findAll
+					```
+					
+					
+		- Descrição: Consultar clientes por CPF
+		- Edpoint: 
+		- Verbo Http: GET "http://localhost:8081/api/v1/customer/findBy?cpf=CPF_DO_CLIENTE"
+		- Response code: 202
+		- Response body: String (Text) ou Json
+		- Como utilizar: Para usar esse endpoint poderá utilizar a aplicação Postman.
+		- Exemplo: 
+		
+					```
+					 http://localhost:8081/api/v1/customer/findBy?cpf=67064969017
+					```
+					
+4. Para finalizar a aplicação, basta apenas fechar o terminal.
 
 ## Estrutura dos arquivos/pacotes: ## 
 
 - **Estrutura de pacotes:**
-	- com.edson.filho.flight.routes : Estrutura base  que contém os demais subpacotes e classe Main da aplicação.
-		- commons: 	Nesse pacote se encontram classes Enums com	todas as mensagens da aplicação e configuração de diretório.
-		- controller: Nesse pacote se encontram as classes que controlam a interface de console e interface Rest
-		- data: Nesse pacote se encontram todas as classes POJO (DTOs)utilizadas  na deserialização do csv e json
-		- service: Nesse pacote se encontram todas as classes com a regra de negócio da aplicação.
+	- com.edson.filho.customer : Estrutura base  que contém os demais subpacotes e classe Main da aplicação.
+		- commons: 	Nesse pacote se encontram a classe Enums com todas as mensagens da aplicação exibidas para o usuário
+		- controller: Nesse pacote se encontra a classe que possuis os endpoints que controlam as APIs Rest
+		- entity: Nesse pacote se encontram todas as classes que serão entidades no banco de dados.
+		- model: Nesse pacote se encontram todas as classes POJO (DTOs)utilizadas  na deserialização do json com informações do Cliente
+		- model.repository: Nesse pacote se encontram todas as Interfaces de repositório utilizadas pelo JPA
+		- service: Nesse pacote se encontram todas as classes com as regras de negócio da aplicação e demais validações.
 		- util: Nesse pacote se encontram todas as classes utilitárias do projeto.
-		
-- **Estrutura de arquivos:**
-	 - Os arquivos csv estão mapeados no seguinte diretório: `\src\main\resources\csv`
-	 - Como a aplicação suporta mais de um arquivo csv, dessa forma mais arquivos poderão ser adicionados a este diretório.
-	 **Obs:** A aplicação considera somente arquivos com extensão `.csv` .
-	 Outro ponto importante é que os arquivos também deverão estar na mesma formatação do `input-routes.csv` oferecido como exemplo.
 
-
+## Casos de teste: ## 	
+	- Os casos de teste foram elaborados utilizando o Junit e podem ser encontrados em 
+	`src/test/java/com/edson/customer/CustomerApplicationTests.java`. Foram construídos  33 cenários para esta aplicação. 	
 	
-## Explicando as decisões de design adotadas para a solução: ## 
-Construí a aplicação procurando separar as funcionalidades em camadas bem definidas e desacopladas, de uma 
-forma que permitisse a reutilização de funcionalidades por ambas as interfaces (Console e Rest Api).
-A seguir eu explico com mais detalhes
+## Decisões de design adotadas para a solução: ## 
+	- Construí a aplicação procurando utilizar os conceitos de S.O.L.I.D e demais conceitos de Clean code
+	e apliquei os conceitos de TDD.
 
-- commons: 
-	- Messages.java:
-		Para a exibição de mensagens no console e na interface Rest, optei por centralizar todas as mensagens da aplicação em uma classe enum ,
-		pois ficaria mais organizado e seria mais fácil de dar manutenção caso eu precisasse mudar algum texto a ser exibido
-	- Directory.java:
-		Também para efeitos de organização, controle e manutenção,
-		achei importante centralizar o caminho do diretório que pretendo buscar os arquivos csv , bem como especificar um formato de arquivo 
-		que minha aplicação espera receber.
-- utils:
-	- Formater.java:
-		No desenvolvimento da aplicação , por várias vezes eu me deparei com situações que era necessário aplicar diversos tipos formatação.
-		Exemplo: Para exibir o resultado no navegador, eu achei mais organizado exibir em um formato HTML, 
-		porém como a classe que traz o resultado é a mesma para a interface de console, exibir a mensagem com tags HTML nessa interface seria inadequado.
-		Dessa forma, para manter mais de um formato de texto de exibição para diferentes interfaces, optei com criar uma classe utilitária
-		que cuidaria da formatação. Essa classe também é utilizada para formatar os textos gravados no arquivo csv. 		
-	- Dijkstra.java:
-		Apesar dessa classe conter a lógica por trás da escolha da rota mais barata, achei que ela se encaixava mais como um utilitário 
-		do que uma regra de negócio, visto que esse algoritmo também pode resolver outros problemas de rotas em outros contextos,
-		por exemplo, achar o caminho mais curto de um ponto X até o ponto Y.
-		- Curiosidade:
-		Após tentar por duas vezes criar um algoritmo apenas usando os fundamentos da minha lógica, obtendo sucesso em alguns cenários e em outros não,
-		decidi estudar sobre algoritmos de rota. Então abandonei as soluções anteriores e me aprofundei no estudo do algoritmo de Dijkstra 
-		(nome dado em homenagem ao cientista Edsger Dijkstra que desenvolveu um algoritmo em 1956 solucionando o problema do caminho mais curto num grafo).
-- data:
-		Todas as classes desse pacote foram essenciais para que eu pudesse manipular os dados do arquivo csv e entradas do usuário de forma mais coerente 
-		e reutilizável. 
-- controller:
-	  - FlightRoutesConsole.java:
-		Para a interface de console, desenvolvi uma classe simples que aguarda por entradas do usuário e funciona de maneira independente da interface Rest. 
-	  - FlightRoutesRestEndpoints:
-		Para a interface de Rest, desenvolvi uma classe Rest com dois endpoints.Um para consulta e outro para acrescentar novas rotas. 
-		Para o endpoint de consulta, a aplicação espera receber um parâmetro na url.
-		Já pra o endpoint de adição de novas rotas, a aplicação espera receber um Json com o nome do arquivo a ser editado e os detalhes da rota.
-		Optei por utilizar o Json para ter a possibilidade de inserir mais de uma rota em uma única chamada,
-		e porque deixa a entrada de dados mais organizada facilitando o processo de deserialização.
-	  
-- service:	
-	 - FileHandler.java:
-		Defini um classe somente para manipular o arquivo csv. Essa classe irá fazer todo o processo de varredura em diretórios, 
-		selecionar arquivos csv, leitura e edição de arquivo.
-	 - FlightRoutesHandler.java:
-		Essa classe é o core da aplicação. Nela estão todas as regras de negócio que diz respeito a natureza da aplicação,
-		que é traçar a rota de viagem com o menor custo. 
-		No código fonte no inicio de cada método existe uma descrição explicando o que cada função faz.
+
+
+
