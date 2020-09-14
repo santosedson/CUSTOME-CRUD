@@ -22,7 +22,7 @@ import com.edson.customer.service.CustomerService;
 * @since   2020-09-14 
 */
 @RestController
-@RequestMapping("c")
+@RequestMapping("/api/v1/customer")
 public class CustomerController {
 	
 	@Autowired
