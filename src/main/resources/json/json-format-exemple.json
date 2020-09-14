@@ -1,0 +1,14 @@
+{
+    "NAME": "edson filho",
+    "CPF": "67064969017",
+    "ADRESS": {
+        "STREET_NAME": "RUA 23 de alguma coisa",
+        "ADRESS_NUMBER": "123",
+        "COMPLEMENT": "ap 44",
+        "CEP": "50720000",
+        "NEIGHBORHOOD": "madalena",
+        "CITY": "recife",
+        "STATE": "pe",
+        "COUNTRY": "br"
+    }
+}
